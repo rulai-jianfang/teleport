@@ -32,7 +32,6 @@ steps:
       - cd /go/src/github.com/gravitational/teleport
       - git clone https://github.com/gravitational/teleport.git .
       - git checkout $DRONE_COMMIT
-      - echo $DRONE_SOURCE_BRANCH > /go/.drone_source_branch.txt
       # this is allowed to fail because pre-4.3 Teleport versions don't use the webassets submodule
       - git submodule update --init webassets || true
       - mkdir -p /go/cache
@@ -1747,7 +1746,6 @@ steps:
       - cd /tmp/build-darwin-amd64-pkg/go/src/github.com/gravitational/teleport
       - git clone https://github.com/gravitational/teleport.git .
       - git checkout $DRONE_COMMIT
-      - echo $DRONE_SOURCE_BRANCH > /tmp/build-darwin-amd64-pkg/go/.drone_source_branch.txt
       # fetch enterprise submodules
       - mkdir -m 0700 ~/.ssh && echo -n "$GITHUB_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
       - ssh-keyscan -H github.com > ~/.ssh/known_hosts 2>/dev/null && chmod 600 ~/.ssh/known_hosts
@@ -1986,7 +1984,6 @@ steps:
       - cd /dev/shm/tmp/go/src/github.com/gravitational/teleport
       - git clone https://github.com/gravitational/teleport.git .
       - git checkout $DRONE_COMMIT
-      - echo $DRONE_SOURCE_BRANCH > /dev/shm/tmp/go/.drone_source_branch.txt
       # fetch enterprise submodules
       - mkdir -m 0700 ~/.ssh && echo -n "$GITHUB_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
       - ssh-keyscan -H github.com > ~/.ssh/known_hosts 2>/dev/null && chmod 600 ~/.ssh/known_hosts
@@ -2424,6 +2421,6 @@ steps:
 
 ---
 kind: signature
-hmac: ccfa2d090819a63d5869c1b14fbae04507a4839d7bf93fba01c999eb3430611d
+hmac: 648348e42318ad36a5c58457c48c5077069b9a1ae5c9c2399d4780c29799c521
 
 ...
