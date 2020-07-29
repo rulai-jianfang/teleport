@@ -407,7 +407,7 @@ steps:
       - mkdir -p /go/src/github.com/gravitational/teleport
       - cd /go/src/github.com/gravitational/teleport
       - git clone https://github.com/gravitational/teleport.git .
-      - git checkout $DRONE_COMMIT
+      - git checkout ${DRONE_COMMIT}
 
   - name: Package helm chart
     image: alpine/helm:2.16.9
@@ -1699,7 +1699,7 @@ steps:
       - mkdir -p /tmp/build-darwin-amd64/go/src/github.com/gravitational/teleport
       - cd /tmp/build-darwin-amd64/go/src/github.com/gravitational/teleport
       - git clone https://github.com/gravitational/teleport.git .
-      - git checkout $DRONE_COMMIT
+      - git checkout ${DRONE_TAG:-$DRONE_COMMIT}
       # fetch enterprise submodules
       - mkdir -m 0700 ~/.ssh && echo -n "$GITHUB_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
       - ssh-keyscan -H github.com > ~/.ssh/known_hosts 2>/dev/null && chmod 600 ~/.ssh/known_hosts
@@ -1793,7 +1793,7 @@ steps:
       - mkdir -p /tmp/build-darwin-amd64-pkg/go/src/github.com/gravitational/teleport
       - cd /tmp/build-darwin-amd64-pkg/go/src/github.com/gravitational/teleport
       - git clone https://github.com/gravitational/teleport.git .
-      - git checkout $DRONE_COMMIT
+      - git checkout ${DRONE_TAG:-$DRONE_COMMIT}
       # fetch enterprise submodules
       - mkdir -m 0700 ~/.ssh && echo -n "$GITHUB_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
       - ssh-keyscan -H github.com > ~/.ssh/known_hosts 2>/dev/null && chmod 600 ~/.ssh/known_hosts
@@ -1905,7 +1905,7 @@ steps:
       - mkdir -p /tmp/build-darwin-amd64-pkg-tsh/go/src/github.com/gravitational/teleport
       - cd /tmp/build-darwin-amd64-pkg-tsh/go/src/github.com/gravitational/teleport
       - git clone https://github.com/gravitational/teleport.git .
-      - git checkout $DRONE_COMMIT
+      - git checkout ${DRONE_TAG:-$DRONE_COMMIT}
       # fetch enterprise submodules
       - mkdir -m 0700 ~/.ssh && echo -n "$GITHUB_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
       - ssh-keyscan -H github.com > ~/.ssh/known_hosts 2>/dev/null && chmod 600 ~/.ssh/known_hosts
@@ -2031,7 +2031,7 @@ steps:
       - mkdir -p /dev/shm/tmp/go/src/github.com/gravitational/teleport
       - cd /dev/shm/tmp/go/src/github.com/gravitational/teleport
       - git clone https://github.com/gravitational/teleport.git .
-      - git checkout $DRONE_COMMIT
+      - git checkout ${DRONE_TAG:-$DRONE_COMMIT}
       # fetch enterprise submodules
       - mkdir -m 0700 ~/.ssh && echo -n "$GITHUB_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
       - ssh-keyscan -H github.com > ~/.ssh/known_hosts 2>/dev/null && chmod 600 ~/.ssh/known_hosts
@@ -2224,6 +2224,7 @@ steps:
       - mkdir -m 0700 /root/.ssh && echo -n "$GITHUB_PRIVATE_KEY" > /root/.ssh/id_rsa && chmod 600 /root/.ssh/id_rsa
       - ssh-keyscan -H github.com > /root/.ssh/known_hosts 2>/dev/null && chmod 600 /root/.ssh/known_hosts
       - git submodule update --init e
+      # this is allowed to fail because pre-4.3 Teleport versions don't use the webassets submodule
       - git submodule update --init --recursive webassets || true
       - rm -f /root/.ssh/id_rsa
       # create necessary directories
@@ -2332,7 +2333,7 @@ steps:
         path: /var/run
     commands:
       - git clone https://github.com/gravitational/teleport.git .
-      - git checkout $DRONE_COMMIT
+      - git checkout ${DRONE_COMMIT}
 
   - name: Build and push buildbox container
     image: docker
@@ -2469,6 +2470,6 @@ steps:
 
 ---
 kind: signature
-hmac: 98acdbb34f225a2b2e5ec8d0a205545f88fb15fe4dd9a26c05079f336e40a5b8
+hmac: b40a9ef07bde3c412aeef7e89838545fe77c6d9d025d0e4985845eb74d8b037e
 
 ...
